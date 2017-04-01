@@ -82,7 +82,7 @@ function populateProdTable() {
         });
 
         // Inject the whole content string into our existing HTML table
-        $('#prodList table tbody').html(tableContent);
+        $('#productList table tbody').html(tableContent);
     });
 };
 
@@ -134,20 +134,14 @@ function showProductInfo(event) {
 function addUser(event) {
     event.preventDefault();
 
-    var isUserIdEmpty = function () { return $('#addUser fieldset input#inputUserId').val() === '' };
-
     // Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
     $('#addUser input').each(function(index, val) {
         if($(this).val() === '') { errorCount++; }
     });
 
-    if(isUserIdEmpty){errorCount--};
-
     // Check and make sure errorCount's still at zero
     if(errorCount === 0) {
-
-            if(isUserIdEmpty){
 
             // If it is, compile all user info into one object
             var usuario = {
@@ -181,41 +175,6 @@ function addUser(event) {
 
                 }
             });
-        } else {
-            
-        var usuario = {
-            '_id': $('#addUser fieldset input#inputUserId').val(),
-            'nome': $('#addUser fieldset input#inputUserName').val(),
-            'email': $('#addUser fieldset input#inputUserEmail').val(),
-            'endereco': $('#addUser fieldset input#inputUserLocation').val()
-        }
-
-        // Use AJAX to post the object to our adduser service
-        $.ajax({
-            type: 'PUT',
-            data: usuario,
-            url: '/users/adduser',
-            dataType: 'JSON'
-        }).done(function( response ) {
-
-            // Check for successful (blank) response
-            if (response.msg === '') {
-
-                // Clear the form inputs
-                $('#addUser fieldset input').val('');
-
-                // Update the table
-                populateTable();
-
-            }
-            else {
-
-                // If something goes wrong, alert the error message that our service returned
-                alert('Error: ' + response.msg);
-
-            }
-        });
-    }
 
     } else {
         // If errorCount is more than 0, error out
@@ -255,7 +214,7 @@ function addProduct(event) {
             if (response.msg === '') {
 
                 // Clear the form inputs
-                $('#addProd fieldset input').val('');
+                $('#addProduct fieldset input').val('');
 
                 // Update the table
                 populateProdTable();
