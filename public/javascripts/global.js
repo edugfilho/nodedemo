@@ -24,7 +24,7 @@ $(document).ready(function() {
      $('#productList table tbody').on('click', 'td a.linkshowprod', showProductInfo);
 
     // Add Product button click
-    $('#btnAddProduct').on('click', addProduct);
+    $('#btnAddProd').on('click', addProduct);
 
     // Delete Product link click
     $('#productList table tbody').on('click', 'td a.linkdeleteprod', deleteProduct);
@@ -82,7 +82,7 @@ function populateProdTable() {
         });
 
         // Inject the whole content string into our existing HTML table
-        $('#prodList table tbody').html(tableContent);
+        $('#productList table tbody').html(tableContent);
     });
 };
 
@@ -200,7 +200,7 @@ function addProduct(event) {
         // If it is, compile all user info into one object
         var produto = {
             'nome': $('#addProd fieldset input#inputProdName').val(),
-            'preco': $('#addProd fieldset input#inputProdEmail').val()
+            'preco': $('#addProd fieldset input#inputProdPreco').val()
         }
 
         // Use AJAX to post the object to our adduser service

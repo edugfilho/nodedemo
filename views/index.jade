@@ -47,11 +47,20 @@ block content
                 li.last
                     h2 Produtos
                     h2 Lista de produtos
-                    #prodList
+                    #productList
                         table
                             thead
                                 th Nome
                                 th Preço
+                                th Delete?
                             tbody
+                            
+                    h2 Insere produto
+                    #addProduct
+                        fieldset
+                            input#inputProdName(type='text', placeholder='Nome')
+                            input#inputProdPreco(type='text', placeholder='Preço')
+                            br
+                            button#btnAddProd Insere 
 
     // /WRAPPER
