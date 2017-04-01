@@ -9,8 +9,10 @@ block content
             ul
                 li.first
                     a(href='#user') Usuários
-                li.last
+                li.second
                     a(href='#product') Produtos
+                li.last
+                    a(href='#order') Pedidos
             #user
                 h2 Usuários
 
@@ -82,4 +84,38 @@ block content
                         input#inputProdPreco(type='text', placeholder='Preço')
                         br
                         button#btnAddProduct Insere 
+
+                        
+            #order
+                h2 Pedidos
+                h3 Lista de pedidos
+                #orderList
+                    table
+                        thead
+                            th Código
+                            th Cliente
+                            th Preço total
+                            th Delete?
+                        tbody
+                               // USER INFO
+                #orderList.info
+                    h3 Informação do pedido
+                    p
+                        strong Nome:
+                        |  <span id='prodInfoName'></span>
+                        br
+                    p
+                       strong Preço:
+                        |  <span id='prodInfoPrice'></span>
+                        br
+
+                // /USER INFO
+
+                h3 Insere pedido
+                #addOrder
+                    fieldset                        
+                    select#inputCustomerName(type='text', placeholder='Cliente')
+                    br
+                    button#btnAddOrder Insere 
+
     // /WRAPPER

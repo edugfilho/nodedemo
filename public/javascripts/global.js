@@ -30,6 +30,18 @@ $(document).ready(function() {
     $('#productList table tbody').on('click', 'td a.linkdeleteprod', deleteProduct);
     
     $( "#tabs" ).tabs();
+    
+    $( "#inputCustomerName" ).select2({
+        placeholder: "Selecione o cliente",
+        ajax: {
+            url:"/users/userlist/",
+            processResults: function(data, params) {
+                return {
+                    results: data.map(function(obj){ return obj.nome})
+                }
+            }
+        }
+    });
 });
 
 // Functions =============================================================
