@@ -66,7 +66,7 @@ function populateProdTable() {
     var tableContent = '';
 
     // jQuery AJAX call for JSON
-    $.getJSON( '/product/productList', function( data ) {
+    $.getJSON( '/product/productlist', function( data ) {
 
         // Stick our user data array into a userlist variable in the global object
         prodListData = data;
