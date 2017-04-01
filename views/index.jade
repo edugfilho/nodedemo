@@ -8,59 +8,79 @@ block content
         #tabs
             ul
                 li.first
-                    // USER INFO
-                    #userInfo
-                        h2 Informação
-                        p
-                            strong Nome:
-                            |  <span id='userInfoName'></span>
-                            br
-                           strong Email:
-                            |  <span id='userInfoEmail'></span>
-                            br
-                           strong Endereço:
-                            |  <span id='userInfoLocation'></span>
-                    // /USER INFO
-
-                    // USER LIST
-                    h2 Lista de usuários
-                    #userList
-                        table
-                            thead
-                                th Nome
-                                th Email
-                                th Delete?
-                            tbody
-                    // /USER LIST
-
-                    // ADD USER
-                    h2 Insere usuário
-                    #addUser
-                        fieldset
-                            input#inputUserName(type='text', placeholder='Nome')
-                            input#inputUserEmail(type='text', placeholder='Email')
-                            br
-                            input#inputUserLocation(type='text', placeholder='Endereço')
-                            br
-                            button#btnAddUser Insere 
-                    // /ADD USER
+                    a(href='#user') Usuários
                 li.last
-                    h2 Produtos
-                    h2 Lista de produtos
-                    #productList
-                        table
-                            thead
-                                th Nome
-                                th Preço
-                                th Delete?
-                            tbody
-                            
-                    h2 Insere produto
-                    #addProduct
-                        fieldset
-                            input#inputProdName(type='text', placeholder='Nome')
-                            input#inputProdPreco(type='text', placeholder='Preço')
-                            br
-                            button#btnAddProd Insere 
+                    a(href='#product') Produtos
+            #user
+                h2 Usuários
+
+                // USER LIST
+                h3 Lista de usuários
+                #userList
+                    table
+                        thead
+                            th Nome
+                            th Email
+                            th Delete?
+                        tbody
+                
+                // USER INFO
+                #userInfo.info
+                    h3 Informação
+                    p
+                        strong Nome:
+                        |  <span id='userInfoName'></span>
+                        br
+                    p
+                       strong Email:
+                        |  <span id='userInfoEmail'></span>
+                        br
+                    p
+                       strong Endereço:
+                        |  <span id='userInfoLocation'></span>
+                // /USER INFO
+
+                // ADD USER
+                h3 Insere usuário
+                #addUser
+                    fieldset
+                        input#inputUserName(type='text', placeholder='Nome')
+                        input#inputUserEmail(type='text', placeholder='Email')
+                        br
+                        input#inputUserLocation(type='text', placeholder='Endereço')
+                        br
+                        button#btnAddUser Insere 
+                // /ADD USER
+            #product
+                h2 Produtos
+                h3 Lista de produtos
+                #productList
+                    table
+                        thead
+                            th Nome
+                            th Preço
+                            th Delete?
+                        tbody
+                               // USER INFO
+                #prodInfo.info
+                    h3 Informação
+                    p
+                        strong Nome:
+                        |  <span id='prodInfoName'></span>
+                        br
+                    p
+                       strong Preço:
+                        |  <span id='prodInfoPrice'></span>
+                        br
+
+                // /USER INFO
+
+                h3 Insere produto
+                #addProduct
+                    fieldset
+                        input#inputProdName(type='text', placeholder='Nome')
+                        input#inputProdPreco(type='text', placeholder='Preço')
+                        br
+                        button#btnAddProd Insere 
 
     // /WRAPPER

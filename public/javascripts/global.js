@@ -199,8 +199,8 @@ function addProduct(event) {
 
         // If it is, compile all user info into one object
         var produto = {
-            'nome': $('#addProd fieldset input#inputProdName').val(),
-            'preco': $('#addProd fieldset input#inputProdPreco').val()
+            'nome': $('#addProduct fieldset input#inputProdName').val(),
+            'preco': $('#addProduct fieldset input#inputProdPreco').val()
         }
 
         // Use AJAX to post the object to our adduser service
