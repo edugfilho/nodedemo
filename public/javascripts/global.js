@@ -67,7 +67,7 @@ function populateProdTable() {
     var tableContent = '';
 
     // jQuery AJAX call for JSON
-    $.getJSON( '/product/productlist', function( data ) {
+    $.getJSON( '/products/productlist', function( data ) {
 
         // Stick our user data array into a userlist variable in the global object
         prodListData = data;
@@ -207,7 +207,7 @@ function addProduct(event) {
         $.ajax({
             type: 'POST',
             data: produto,
-            url: '/product/addproduct',
+            url: '/products/addproduct',
             dataType: 'JSON'
         }).done(function( response ) {
 
@@ -290,7 +290,7 @@ function deleteProduct(event) {
         // If they did, do our delete
         $.ajax({
             type: 'DELETE',
-            url: '/product/deleteproduct/' + $(this).attr('rel')
+            url: '/products/deleteproduct/' + $(this).attr('rel')
         }).done(function( response ) {
 
             // Check for a successful (blank) response
