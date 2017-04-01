@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    h1= title
+    
+    // Wrapper
+    #wrapper
+
+        // USER INFO
+        #userInfo
+            h2 Informação
+            p
+                strong Nome:
+                |  <span id='userInfoName'></span>
+                br
+               strong Email:
+                |  <span id='userInfoEmail'></span>
+                br
+               strong Endereço:
+                |  <span id='userInfoLocation'></span>
+        // /USER INFO
+
+        // USER LIST
+        h2 Lista de usuários
+        #userList
+            table
+                thead
+                    th Nome
+                    th Email
+                    th Delete?
+                tbody
+        // /USER LIST
+
+        // ADD USER
+        h2 Insere usuário
+        #addUser
+            fieldset
+                input#inputUserName(type='text', placeholder='Nome')
+                input#inputUserEmail(type='text', placeholder='Email')
+                br
+                input#inputUserLocation(type='text', placeholder='Endereço')
+                br
+                button#btnAddUser Insere 
+        // /ADD USER
+
+    // /WRAPPER
