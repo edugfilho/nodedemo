@@ -21,13 +21,13 @@ $(document).ready(function() {
 
 
     // Product link click
-     $('#productList table tbody').on('click', 'td a.linkshowuser', showProductInfo);
+     $('#productList table tbody').on('click', 'td a.linkshowprod', showProductInfo);
 
     // Add Product button click
     $('#btnAddProduct').on('click', addProduct);
 
     // Delete Product link click
-    $('#productList table tbody').on('click', 'td a.linkdeleteuser', deleteProduct);
+    $('#productList table tbody').on('click', 'td a.linkdeleteprod', deleteProduct);
 
 });
 
