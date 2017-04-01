@@ -13,12 +13,6 @@ $(document).ready(function() {
     // Username link click
     $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
 
-    // Edit User Info
-    $('#userList table tbody').on('click', 'td a.linkedituser', editUserInfo);
-
-    // Submit edited user info
-    $('#btnEditUser').on('click', submitEditedUser);
-
     // Add User button click
     $('#btnAddUser').on('click', addUser);
 
@@ -28,9 +22,6 @@ $(document).ready(function() {
 
     // Product link click
      $('#productList table tbody').on('click', 'td a.linkshowprod', showProductInfo);
-
-     //Edit Product info
-     $('#productList table tbody').on('click', 'td a.linkeditprod', editProductInfo);
 
     // Add Product button click
     $('#btnAddProduct').on('click', addProduct);
@@ -61,7 +52,6 @@ function populateTable() {
             tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.nome + '" title="Detalhes">' + this.nome + '</a></td>';
             tableContent += '<td>' + this.email + '</td>';
             tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
-            tableContent += '<td><a href="#" class="linkedituser" rel="' + this._id + '">edit</a></td>';
             tableContent += '</tr>';
         });
 
@@ -88,7 +78,6 @@ function populateProdTable() {
             tableContent += '<td><a href="#" class="linkshowprod" rel="' + this.nome + '" title="Detalhes">' + this.nome + '</a></td>';
             tableContent += '<td>' + this.preco + '</td>';
             tableContent += '<td><a href="#" class="linkdeleteprod" rel="' + this._id + '">delete</a></td>';
-            tableContent += '<td><a href="#" class="linkeditprod" rel="' + this._id + '">edit</a></td>';
             tableContent += '</tr>';
         });
 
@@ -119,87 +108,6 @@ function showUserInfo(event) {
 	$('#userInfoEmail').text(thisUserObject.email);
 
 };
-
-
-// Edit User Info
-function editUserInfo(event) {
-
-    // Prevent Link from Firing
-    event.preventDefault();
-
-    // Retrieve username from link rel attribute
-    var thisUserName = $(this).attr('rel');
-
-    // Get Index of object based on id value
-    var arrayPosition = userListData.map(function(arrayItem) { return arrayItem.nome; }).indexOf(thisUserName);
-
-    // Get our User Object
-    var thisUserObject = userListData[arrayPosition];
-
-    //Populate Info Box
-    $('input#inputUserId').text(thisUserObject._id);
-    $('input#inputUserLocation').text(thisUserObject.endereco);
-	$('input#inputUserName').text(thisUserObject.nome);
-	$('input#inputUserEmail').text(thisUserObject.email);
-};
-
-
-
-
-// Submit edited User
-function submitEditedUser(event) {
-    event.preventDefault();
-
-    // Super basic validation - increase errorCount variable if any fields are blank
-    var errorCount = 0;
-    $('#addUser input').each(function(index, val) {
-        if($(this).val() === '') { errorCount++; }
-    });
-
-    // Check and make sure errorCount's still at zero
-    if(errorCount === 0) {
-
-        // If it is, compile all user info into one object
-        var usuario = {
-            '_id': $('#addUser fieldset input#inputUserId').val(),
-            'nome': $('#addUser fieldset input#inputUserName').val(),
-            'email': $('#addUser fieldset input#inputUserEmail').val(),
-            'endereco': $('#addUser fieldset input#inputUserLocation').val()
-        }
-
-        // Use AJAX to post the object to our adduser service
-        $.ajax({
-            type: 'POST',
-            data: usuario,
-            url: '/users/adduser',
-            dataType: 'JSON'
-        }).done(function( response ) {
-
-            // Check for successful (blank) response
-            if (response.msg === '') {
-
-                // Clear the form inputs
-                $('#addUser fieldset input').val('');
-
-                // Update the table
-                populateTable();
-
-            }
-            else {
-
-                // If something goes wrong, alert the error message that our service returned
-                alert('Error: ' + response.msg);
-
-            }
-        });
-    }
-    else {
-        // If errorCount is more than 0, error out
-        alert('Please fill in all fields');
-        return false;
-    }
-};
-
 
 // Show Product Info
 function showProductInfo(event) {
