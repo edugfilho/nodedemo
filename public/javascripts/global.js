@@ -28,7 +28,8 @@ $(document).ready(function() {
 
     // Delete Product link click
     $('#productList table tbody').on('click', 'td a.linkdeleteprod', deleteProduct);
-
+    
+    $( "#tabs" ).tabs();
 });
 
 // Functions =============================================================
