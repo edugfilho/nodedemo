@@ -31,17 +31,7 @@ $(document).ready(function() {
     
     $( "#tabs" ).tabs();
     
-    $( "#inputCustomerName" ).select2({
-        placeholder: "Selecione o cliente",
-        ajax: {
-            url:"/users/userlist/",
-            processResults: function(data, params) {
-                return {
-                    results: data.map(function(obj){ return obj.nome})
-                }
-            }
-        }
-    });
+
 });
 
 // Functions =============================================================
@@ -69,6 +59,10 @@ function populateTable() {
 
         // Inject the whole content string into our existing HTML table
         $('#userList table tbody').html(tableContent);
+        $( "#orderInputCustomerName" ).select2({
+            placeholder: "Selecione o cliente",
+            data: userListData.map(function(obj){ return obj.nome})
+        });
     });
 };
 
@@ -95,6 +89,10 @@ function populateProdTable() {
 
         // Inject the whole content string into our existing HTML table
         $('#productList table tbody').html(tableContent);
+        $( "#orderInputProdName" ).select2({
+            placeholder: "Selecione o produto",
+            data: prodListData.map(function(obj){ return obj.nome})
+        });
     });
 };
 
