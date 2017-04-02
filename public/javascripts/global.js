@@ -3,6 +3,10 @@ var userListData = [];
 // Product data array for filling in product tab
 var prodListData = [];
 
+var max_fields      = 10; //maximum input boxes allowed
+var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+var add_button      = $(".add_field_button"); //Add button ID
+
 // DOM Ready =============================================================
 $(document).ready(function() {
 
@@ -29,6 +33,26 @@ $(document).ready(function() {
     // Delete Product link click
     $('#productList table tbody').on('click', 'td a.linkdeleteprod', deleteProduct);
     
+    // Add Product button click
+    $('#btnAddOrder').on('click', addOrder);
+
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div id="orderItem"><label>Produto </label><select type="text" style="width: 100px" name="itemPedido[]"/> <label>Quantidade </label><input style=" width: 50px" type="number" name="quantidadePedido[]"/><a href="#" class="remove_field">Remover</a></div>'); //add input box
+        }
+        populateProdTable();
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+
+
+
+
     $( "#tabs" ).tabs();
     
 
@@ -89,14 +113,14 @@ function populateProdTable() {
 
         // Inject the whole content string into our existing HTML table
         $('#productList table tbody').html(tableContent);
-        $( "#orderInputProdName" ).select2({
+        $( "select[name='itemPedido[]'" ).each(function(){
+            $(this).select2({
             placeholder: "Selecione o produto",
             data: prodListData.map(function(obj){ return obj.nome})
-        });
+        })
+      }); 
     });
 };
-
-
 // Show User Info
 function showUserInfo(event) {
 
@@ -177,8 +201,7 @@ function addUser(event) {
                     // Update the table
                     populateTable();
 
-                }
-                else {
+                } else {
 
                     // If something goes wrong, alert the error message that our service returned
                     alert('Error: ' + response.msg);
@@ -188,10 +211,80 @@ function addUser(event) {
 
     } else {
         // If errorCount is more than 0, error out
-        alert('Please fill in all fields');
+        alert('Por favor preencha todos os campos.');
         return false;
     }
 };
+
+// Add Product
+function addOrder(event) {
+    event.preventDefault();
+    var produto = [];
+    var quantidade = [];
+    var itemsPedido = [];
+    var pedido;
+
+    // Super basic validation - increase errorCount variable if any fields are blank
+    var errorCount = 0;
+    $('#addOrder input').each(function(index, val) {
+        if($(this).val() === '') { errorCount++; }
+    });
+
+    // Check and make sure errorCount's still at zero
+    if(errorCount === 0) {
+
+        $("select[name='itemPedido[]'").each(function(){
+            produto.push($(this).find(":selected").val());
+        }); 
+
+         $("input[name='quantidadePedido[]'").each(function(){
+            quantidade.push($(this).val());
+        }); 
+
+        for(i = 0; i < produto.length; i++){
+            //itemPedido.concat("{'produto': "+produto[i]+", 'quantidade':"+quantidade[i]+"}");
+            itemsPedido.push("{'produto': " + produto[i] + ",'quantidade': " + quantidade[i] + "}");
+        }
+
+        pedido = {
+            'cliente': $('#addOrder #orderInputCustomerName').find(":selected").val(),
+            'itemsPedido' : JSON.stringify(itemsPedido)
+        }
+
+        // Use AJAX to post the object to our adduser service
+        $.ajax({
+            type: 'POST',
+            data: pedido,
+            url: '/orders/addorder',
+            dataType: 'JSON'
+        }).done(function( response ) {
+
+            // Check for successful (blank) response
+            if (response.msg === '') {
+
+
+                while(max_fields != 0) {
+                    $("#orderItem").remove();
+                    max_fields--;
+                }
+
+                // Update the table
+                //populateOrderTable();
+
+            } else {
+
+                // If something goes wrong, alert the error message that our service returned
+                alert('Error: ' + response.msg);
+
+            }
+        });
+    } else {
+        // If errorCount is more than 0, error out
+        alert('Por favor preencha todos os campos.');
+        return false;
+    }
+};
+
 
 // Add Product
 function addProduct(event) {
@@ -199,7 +292,7 @@ function addProduct(event) {
 
     // Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
-    $('#addProduct input').each(function(index, val) {
+    $('#addProduct input select').each(function(index, val) {
         if($(this).val() === '') { errorCount++; }
     });
 
@@ -229,16 +322,14 @@ function addProduct(event) {
                 // Update the table
                 populateProdTable();
 
-            }
-            else {
+            } else {
 
                 // If something goes wrong, alert the error message that our service returned
                 alert('Error: ' + response.msg);
 
             }
         });
-    }
-    else {
+    } else {
         // If errorCount is more than 0, error out
         alert('Por favor preencha todos os campos.');
         return false;
@@ -275,12 +366,10 @@ function deleteUser(event) {
 
         });
 
-    }
-    else {
+    } else {
 
         // If they said no to the confirm, do nothing
         return false;
-
     }
 
 };

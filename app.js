@@ -12,6 +12,7 @@ var db = monk('heroku_pmk7md6d:8c9gn0cmqjfbnn8fdel3v3dbee@ds119380.mlab.com:1938
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var products = require('./routes/products');
+var orders = require('./routes/orders');
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use(function(req,res,next){
 app.use('/', routes);
 app.use('/users', users);
 app.use('/products', products);
+app.use('/orders', orders);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

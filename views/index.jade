@@ -113,18 +113,15 @@ block content
 
                 h3 Insere pedido
                 #addOrder
+                    
                     h3 Cliente
                     fieldset                        
                     select#orderInputCustomerName(type='text', placeholder='Cliente')
                     br
                     
                     h3 Produto
-                    fieldset                        
-                    select#orderInputProdName(type='text', placeholder='Produto')
-                    br
-                    h3 Quantidade
-                    fieldset                        
-                    input#orderInputProdName(type='number', placeholder='Quantidade')
+                    .input_fields_wrap
+                        button.add_field_button Adicionar Produto
                     br
                     button#btnAddOrder Insere
 
